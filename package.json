@@ -1,0 +1,16 @@
+{
+  "name": "ebmWeb",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nikolas LeBlanc <nikolas.leblanc@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "ebmstats": "0.0.4",
+    "express": "^4.10.4"
+  }
+}
