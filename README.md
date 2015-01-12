@@ -56,6 +56,11 @@ http://localhost:3000/diagnosticTest
 }
 ```
 
+To view the associated probability graph with lrPlus of 1000 and lrMinus of 0.001, access the following routes:
+
+- http://localhost:3000/chart/svg/1000/0.001
+- http://localhost:3000/chart/png/1000/0.001
+
 #### Prospective Study
 
 ```
@@ -109,3 +114,5 @@ http://localhost:3000/caseControlStudy
   "orUpperLimit":11.285
 }
 ```
+
+
