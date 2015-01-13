@@ -1,0 +1,19 @@
+<h2>Option 1: Enter values into the table below</h2>
+<form action="#">
+  <legend>Please fill out the following form</legend>
+  <ul>
+    <li>Disease
+      <ul>
+        <li><label for="testPositiveDisease">Test Positive</label><input type="text" name="testPositiveDisease" id="testPositiveDisease" value="<%= testPositiveDisease %>"></li>
+        <li><label for="testNegativeDisease">Test Negative</label><input type="text" name="testNegativeDisease" id="testNegativeDisease" value="<%= testNegativeDisease %>"></li>
+      </ul>
+    </li>
+    <li>No Disease
+      <ul>
+        <li><label for="testPositiveNoDisease">Test Positive</label><input type="text" name="testPositiveNoDisease" id="testPositiveNoDisease" value="<%= testPositiveNoDisease %>"></li>
+        <li><label for="testNegativeNoDisease">Test Negative</label><input type="text" name="testNegativeNoDisease" id="testNegativeNoDisease" value="<%= testNegativeNoDisease %>"></li>
+      </ul>
+    </li>
+  </ul>
+  <input type="submit" value="Submit">
+</form>

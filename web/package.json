@@ -1,0 +1,16 @@
+{
+  "name": "app",
+  "description": "An HTML/JS/CSS app",
+  "version": "0.0.1",
+  "private": true,
+  "author": "John Doe",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "lineman": "^0.34.3",
+    "lineman-bower": "0.0.5"
+  },
+  "scripts": {
+    "start": "lineman run",
+    "test": "lineman spec-ci"
+  }
+}

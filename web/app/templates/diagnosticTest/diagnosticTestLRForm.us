@@ -1,0 +1,9 @@
+<h2>Option 2: Enter the LR values only</h2>
+<form action="#">
+  <legend>Please fill out the following form</legend>
+  <ul>
+    <li><label for="lrPlus">LR+</label><input type="text" name="lrPlus" id="lrPlus" value="<%= lrPlus %>"></li>
+    <li><label for="lrMinus">LR-</label><input type="text" name="lrMinus" id="lrMinus" value="<%= lrMinus %>"></li>
+  </ul>
+  <input type="submit" value="Submit">
+</form>

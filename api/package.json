@@ -15,5 +15,8 @@
     "express": "^4.10.7",
     "pngjs-image": "^0.9.3",
     "svgexport": "^0.1.14"
+  },
+  "devDependencies": {
+    "cors": "^2.5.2"
   }
 }

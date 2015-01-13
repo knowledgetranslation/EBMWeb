@@ -1,0 +1,39 @@
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Estimate</th>
+      <th>95% CI</th>
+    </tr>
+  </thead>
+  <tr>
+    <td>Sensitivity</td>
+    <td><%= sensitivity %></td>
+    <td>[<%= sensitivityLowerLimit %> to <%= sensitivityUpperLimit %>]</td>
+  </tr>
+  <tr>
+    <td>Specificity</td>
+    <td><%= specificity %></td>
+    <td>[<%= specificityLowerLimit %> to <%= specificityUpperLimit %>]</td>
+  </tr>
+  <tr>
+    <td>PPV</td>
+    <td><%= ppv %></td>
+    <td>[<%= ppvLowerLimit %> to <%= ppvUpperLimit %>]</td>
+  </tr>
+  <tr>
+    <td>NPV</td>
+    <td><%= npv %></td>
+    <td>[<%= npvLowerLimit %> to <%= npvUpperLimit %>]</td>
+  </tr>
+  <tr>
+    <td>LR+</td>
+    <td><%= lrPlus %></td>
+    <td>[<%= lrPlusLowerLimit %> to <%= lrPlusUpperLimit %>]</td>
+  </tr>
+  <tr>
+    <td>LR-</td>
+    <td><%= lrMinus %></td>
+    <td>[<%= lrMinusLowerLimit %> to <%= lrMinusUpperLimit %>]</td>
+  </tr>
+</table>

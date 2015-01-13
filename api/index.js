@@ -1,15 +1,18 @@
 var express = require('express')
 var fs = require('fs')
 var bodyParser = require('body-parser')
-var ebmstats = require('ebmstats')
+var ebmstats = require('../../ebmStats/index.js')
 var app = express()
 var PNGImage = require('pngjs-image')
+var cors = require('cors')
+app.use(cors())
 
 app.use(bodyParser.json())
 
 var a, b, c, d;
 
 function setValues (req, res, next) {
+  /*
   if (req.method === "POST") {
     a = parseFloat(req.body.a)
     b = parseFloat(req.body.b)
@@ -20,13 +23,14 @@ function setValues (req, res, next) {
 
     next()
   }
+  */
 }
 
 app.get('/chart/svg/:lrPlus/:lrMinus', function(req, res) {
+  res.set('Content-Type', 'image/svg+xml');
   var fileName = "./template/graph.svg";
   var lrPlus = req.params.lrPlus;
   var lrMinus = req.params.lrMinus;
-  console.log(lrMinus);
   fs.exists(fileName, function(exists) {
     if (exists) {
       fs.stat(fileName, function(error, stats) {
@@ -42,7 +46,6 @@ app.get('/chart/svg/:lrPlus/:lrMinus', function(req, res) {
               "width":297,
               "height":296
             }
-
             res.send(plotSVG(data, lrPlus, lrMinus, canvas));
           });
         });
@@ -166,15 +169,17 @@ function plotSVG(template, lrPlus, lrMinus, canvas) {
     lineRed += " L" + point.x + "," + point.y; // draw line to new x,y coordinate
   });
 
-  template = template.split("{{red}}").join(lineRed);
-  template = template.split("{{blue}}").join(lineBlue);
+  if (lrPlus !== "0" && lrMinus !== "0") {
+    template = template.split("{{red}}").join(lineRed);
+    template = template.split("{{blue}}").join(lineBlue);
+  }
 
   return template;
 }
 
 
 
-app.use(setValues)
+
 
 app.post('/rct', function (req, res) {
 	res.send(ebmstats.getRct())
@@ -185,12 +190,25 @@ app.post('/caseControlStudy', function (req, res) {
 })
 
 app.post('/diagnosticTest', function (req, res) {
-  console.log('a');
-  res.send(ebmstats.getDiagnosticTest())
+  var testValues = {
+    "testPositiveDisease": parseFloat(req.body.testPositiveDisease),
+    "testPositiveNoDisease": parseFloat(req.body.testPositiveNoDisease),
+    "testNegativeDisease": parseFloat(req.body.testNegativeDisease),
+    "testNegativeNoDisease": parseFloat(req.body.testNegativeNoDisease),
+    "lrPlus": parseFloat(req.body.lrPlus),
+    "lrMinus": parseFloat(req.body.lrMinus)
+  }
+  res.send(ebmstats.getDiagnosticTest(testValues))
 })
 
 app.post('/prospectiveStudy', function (req, res) {
-  res.send(ebmstats.getProspectiveStudy())
+  var testValues = {
+    "treatedDisease": parseFloat(req.body.treatedDisease),
+    "treatedNoDisease": parseFloat(req.body.treatedNoDisease),
+    "notTreatedDisease": parseFloat(req.body.notTreatedDisease),
+    "notTreatedNoDisease": parseFloat(req.body.notTreatedNoDisease)
+  }
+  res.send(ebmstats.getProspectiveStudy(testValues))
 })
 
 var server = app.listen(3000, function() {
