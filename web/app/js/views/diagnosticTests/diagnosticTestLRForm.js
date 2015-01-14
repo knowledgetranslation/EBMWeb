@@ -4,18 +4,30 @@ app.views.DiagnosticTestLRFormView = Backbone.View.extend({
   template: JST['app/templates/diagnosticTest/diagnosticTestLRForm.us'],
 
   initialize: function() {
+    this.listenTo(Backbone, 'tests:changed', this.show);
+    this.listenTo(this.model, 'change', this.render);
     this.render();
-    this.model.on('change', this.render, this);
+    this.el.style.display = 'none';
   },
 
   events: {
     'submit form': 'submit'
   },
 
+  show: function(model) {
+    if (model.get("id") === "1") {
+      this.el.style.display = 'block';
+    }
+    else
+    {
+      this.el.style.display = 'none';
+    }
+  },
+
   submit: function (e) {
       e.preventDefault();
-      var lrPlus = $(this.$el).find("input[name=lrPlus]").val();
-      var lrMinus = $(this.$el).find("input[name=lrMinus]").val();
+      var lrPlus = this.el.querySelector("input[name=lrPlus]").value;
+      var lrMinus = this.el.querySelector("input[name=lrMinus]").value;
       var testValues = {
         "lrPlus": parseFloat(lrPlus),
         "lrMinus": parseFloat(lrMinus),
@@ -28,6 +40,6 @@ app.views.DiagnosticTestLRFormView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template(this.model.attributes));
+    this.el.innerHTML = this.template(this.model.attributes);
   }
 });

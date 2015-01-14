@@ -1,0 +1,19 @@
+<h2>Option 1: Enter values into the table below</h2>
+<form action="#">
+  <legend>Please fill out the following form</legend>
+  <ul>
+    <li>Exposed
+      <ul>
+        <li><label for="caseExposed">Case</label><input type="text" name="caseExposed" id="caseExposed" value="<%= caseExposed %>"></li>
+        <li><label for="controlExposed">Control</label><input type="text" name="controlExposed" id="controlExposed" value="<%= controlExposed %>"></li>
+      </ul>
+    </li>
+    <li>Not Exposed
+      <ul>
+        <li><label for="caseNotExposed">Case</label><input type="text" name="caseNotExposed" id="caseNotExposed" value="<%= caseNotExposed %>"></li>
+        <li><label for="controlNotExposed">Control</label><input type="text" name="controlNotExposed" id="controlNotExposed" value="<%= controlNotExposed %>"></li>
+      </ul>
+    </li>
+  </ul>
+  <input type="submit" value="Submit">
+</form>

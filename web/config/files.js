@@ -11,7 +11,7 @@ module.exports = function(lineman) {
 
     js: {
       vendor: [
-        "vendor/bower/jquery/dist/jquery.js",
+        "vendor/bower/zepto/zepto.js",
         "vendor/bower/underscore/underscore.js",
         "vendor/bower/backbone/backbone.js"
       ],

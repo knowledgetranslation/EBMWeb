@@ -1,7 +1,7 @@
-app.views.DiagnosticTestResultsView = Backbone.View.extend({
+app.views.RandomizedControlTrialResultsView = Backbone.View.extend({
   tagName: 'div',
 
-  template: JST['app/templates/diagnosticTest/diagnosticTestResults.us'],
+  template: JST['app/templates/randomizedControlTrial/rctResults.us'],
 
   initialize: function() {
     this.listenTo(Backbone, 'tests:changed', this.show);
@@ -10,8 +10,12 @@ app.views.DiagnosticTestResultsView = Backbone.View.extend({
     this.el.style.display = 'none';
   },
 
+  events: {
+    'submit form': 'submit'
+  },
+
   show: function(model) {
-    if (model.get("id") === "1") {
+    if (model.get("id") === "4") {
       this.el.style.display = 'block';
     }
     else

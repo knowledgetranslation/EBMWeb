@@ -1,7 +1,7 @@
-app.views.DiagnosticTestResultsView = Backbone.View.extend({
+app.views.ProspectiveStudyResultsView = Backbone.View.extend({
   tagName: 'div',
 
-  template: JST['app/templates/diagnosticTest/diagnosticTestResults.us'],
+  template: JST['app/templates/prospectiveStudy/prospectiveStudyResults.us'],
 
   initialize: function() {
     this.listenTo(Backbone, 'tests:changed', this.show);
@@ -11,7 +11,7 @@ app.views.DiagnosticTestResultsView = Backbone.View.extend({
   },
 
   show: function(model) {
-    if (model.get("id") === "1") {
+    if (model.get("id") === "2") {
       this.el.style.display = 'block';
     }
     else

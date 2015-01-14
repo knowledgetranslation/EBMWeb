@@ -4,20 +4,32 @@ app.views.ProspectiveStudyFormView = Backbone.View.extend({
   template: JST['app/templates/prospectiveStudy/prospectiveStudyForm.us'],
 
   initialize: function() {
+    this.listenTo(Backbone, 'tests:changed', this.show);
+    this.listenTo(this.model, 'change', this.render);
     this.render();
-    this.model.on('change', this.render, this);
+    this.el.style.display = 'none';
   },
 
   events: {
     'submit form': 'submit'
   },
 
+  show: function(model) {
+    if (model.get("id") === "2") {
+      this.el.style.display = 'block';
+    }
+    else
+    {
+      this.el.style.display = 'none';
+    }
+  },
+
   submit: function (e) {
       e.preventDefault();
-      var treatedDisease = $(this.$el).find("input[name=treatedDisease]").val();
-      var treatedNoDisease = $(this.$el).find("input[name=treatedNoDisease]").val();
-      var notTreatedDisease = $(this.$el).find("input[name=notTreatedDisease]").val();
-      var notTreatedNoDisease = $(this.$el).find("input[name=notTreatedNoDisease]").val();
+      var treatedDisease = this.el.querySelector("input[name=treatedDisease]").value;
+      var treatedNoDisease = this.el.querySelector("input[name=treatedNoDisease]").value;
+      var notTreatedDisease = this.el.querySelector("input[name=notTreatedDisease]").value;
+      var notTreatedNoDisease = this.el.querySelector("input[name=notTreatedNoDisease]").value;
       var testValues = {
         "treatedDisease": parseFloat(treatedDisease),
         "treatedNoDisease": parseFloat(treatedNoDisease),
@@ -28,6 +40,6 @@ app.views.ProspectiveStudyFormView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template(this.model.attributes));
+    this.el.innerHTML = this.template(this.model.attributes);
   }
 });

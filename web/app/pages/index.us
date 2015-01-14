@@ -10,11 +10,20 @@
     <div id="diagnosticTests">
       <div id="diagnosticTestForm"></div>
       <div id="diagnosticTestLRForm"></div>
-      <div id="diagnosticTest" style="width:500px; height: 500px;"></div>
+      <div id="diagnosticTest" style="width:500px;"></div>
       <div id="diagnosticTestResults" style="width:500px;"></div>
     </div>
     <div id="prospectiveStudyTests">
       <div id="prospectiveStudy"></div>
+      <div id="prospectiveStudyResults"></div>
+    </div>
+    <div id="caseControlStudyTests">
+      <div id="caseControlStudy"></div>
+      <div id="caseControlStudyResults"></div>
+    </div>
+    <div id="rctTests">
+      <div id="rctStudy"></div>
+      <div id="rctStudyResults"></div>
     </div>
     <script type="text/javascript" src="<%= js %>"></script>
   </body>

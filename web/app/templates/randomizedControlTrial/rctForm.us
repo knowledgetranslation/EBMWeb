@@ -1,0 +1,19 @@
+<h2>Option 1: Enter values into the table below</h2>
+<form action="#">
+  <legend>Please fill out the following form</legend>
+  <ul>
+    <li>Outcome
+      <ul>
+        <li><label for="caseExposed">Experimental</label><input type="text" name="experimentalOutcome" id="experimentalOutcome" value="<%= experimentalOutcome %>"></li>
+        <li><label for="controlOutcome">Control</label><input type="text" name="controlOutcome" id="controlOutcome" value="<%= controlOutcome %>"></li>
+      </ul>
+    </li>
+    <li>No Outcome
+      <ul>
+        <li><label for="experimentalNoOutcome">Experimental</label><input type="text" name="experimentalNoOutcome" id="experimentalNoOutcome" value="<%= experimentalNoOutcome %>"></li>
+        <li><label for="controlNoOutcome">Control</label><input type="text" name="controlNoOutcome" id="controlNoOutcome" value="<%= controlNoOutcome %>"></li>
+      </ul>
+    </li>
+  </ul>
+  <input type="submit" value="Submit">
+</form>

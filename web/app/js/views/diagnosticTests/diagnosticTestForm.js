@@ -4,20 +4,32 @@ app.views.DiagnosticTestFormView = Backbone.View.extend({
   template: JST['app/templates/diagnosticTest/diagnosticTestForm.us'],
 
   initialize: function() {
+    this.listenTo(Backbone, 'tests:changed', this.show);
+    this.listenTo(this.model, 'change', this.render);
     this.render();
-    this.model.on('change', this.render, this);
+    this.el.style.display = 'none';
   },
 
   events: {
     'submit form': 'submit'
   },
 
+  show: function(model) {
+    if (model.get("id") === "1") {
+      this.el.style.display = 'block';
+    }
+    else
+    {
+      this.el.style.display = 'none';
+    }
+  },
+
   submit: function (e) {
       e.preventDefault();
-      var testPositiveDisease = $(this.$el).find("input[name=testPositiveDisease]").val();
-      var testPositiveNoDisease = $(this.$el).find("input[name=testPositiveNoDisease]").val();
-      var testNegativeDisease = $(this.$el).find("input[name=testNegativeDisease]").val();
-      var testNegativeNoDisease = $(this.$el).find("input[name=testNegativeNoDisease]").val();
+      var testPositiveDisease = this.el.querySelector("input[name=testPositiveDisease]").value;
+      var testPositiveNoDisease = this.el.querySelector("input[name=testPositiveNoDisease]").value;
+      var testNegativeDisease = this.el.querySelector("input[name=testNegativeDisease]").value;
+      var testNegativeNoDisease = this.el.querySelector("input[name=testNegativeNoDisease]").value;
       var testValues = {
         "lrPlus": 0,
         "lrMinus": 0,
@@ -30,6 +42,6 @@ app.views.DiagnosticTestFormView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template(this.model.attributes));
+    this.el.innerHTML = this.template(this.model.attributes);
   }
 });

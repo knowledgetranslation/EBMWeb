@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <td>Chi-squared</td>
+    <td><%= chiSquared %></td>
+    <td>pValue: <%= pValue %></td>
+  </tr>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Estimate</th>
+      <th>95% CI</th>
+    </tr>
+  </thead>
+  <tr>
+    <td>OR</td>
+    <td><%= or %></td>
+    <td>[<%= orLowerLimit %> to <%= orUpperLimit %>]</td>
+  </tr>
+</table>

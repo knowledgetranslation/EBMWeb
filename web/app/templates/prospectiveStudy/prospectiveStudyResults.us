@@ -1,0 +1,31 @@
+<table>
+  <tr>
+    <td>Chi-squared</td>
+    <td><%= chiSquared %></td>
+    <td>pValue: <%= pValue %></td>
+  </tr>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Estimate</th>
+      <th>95% CI</th>
+    </tr>
+  </thead>
+  <tr>
+    <td>RR</td>
+    <td><%= rr %></td>
+    <td>[<%= rrLowerLimit %> to <%= rrUpperLimit %>]</td>
+  </tr>
+  <tr>
+    <td>ARR</td>
+    <td><%= arr %></td>
+    <td>[<%= arrLowerLimit %> to <%= arrUpperLimit %>]</td>
+  </tr>
+  <tr>
+    <td>NNT</td>
+    <td><%= nnt %></td>
+    <td>[<%= nntLowerLimit %> to <%= nntUpperLimit %>]</td>
+  </tr>
+</table>

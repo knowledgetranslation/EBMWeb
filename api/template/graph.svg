@@ -112,5 +112,11 @@
         <rect x="0" y="0" width="297" height="296" stroke="black" fill="transparent" stroke-width="1"/>
         <path fill="none" stroke="#f00" stroke-width="2" stroke-miterlimit="10" d="{{red}}"/>
         <path fill="none" stroke="#00f" stroke-width="2" stroke-miterlimit="10" d="{{blue}}"/>
+        {{controlPointRed}}
+        {{controlPointBlue}}
+        <!--
+        <path fill="none" stroke="#0f0" stroke-width="2" stroke-miterlimit="10" d="{{controlRed}}"/>
+        <path fill="none" stroke="#666" stroke-width="2" stroke-miterlimit="10" d="{{controlBlue}}"/>
+        -->
     </g>
 </svg>

@@ -1,13 +1,13 @@
-var express = require('express')
-var fs = require('fs')
-var bodyParser = require('body-parser')
-var ebmstats = require('../../ebmStats/index.js')
-var app = express()
-var PNGImage = require('pngjs-image')
-var cors = require('cors')
-app.use(cors())
+var express = require('express');
+var fs = require('fs');
+var bodyParser = require('body-parser');
+var ebmstats = require('../../ebmStats/index.js');
+var app = express();
+var PNGImage = require('pngjs-image');
+var cors = require('cors');
 
-app.use(bodyParser.json())
+app.use(cors());
+app.use(bodyParser.json());
 
 var a, b, c, d;
 
@@ -45,7 +45,8 @@ app.get('/chart/svg/:lrPlus/:lrMinus', function(req, res) {
             var canvas = {
               "width":297,
               "height":296
-            }
+            };
+
             res.send(plotSVG(data, lrPlus, lrMinus, canvas));
           });
         });
@@ -150,13 +151,22 @@ function drawPNGPixel (image, x, y, color) {
   image.setAt(x+2, y+2, color);
 }
 
-
-
 function plotSVG(template, lrPlus, lrMinus, canvas) {
   // do something to return a graph, a png for example, maybe a binary string so nothing has to save to memory.
 
+  lrPlus = parseFloat(lrPlus);
+  lrMinus = parseFloat(lrMinus);
+
   var lineRed = "M0," + canvas.height; // move cursor to origin
   var lineBlue = "M0," + canvas.height; // move cursor to origin
+
+  var lineControlRed,
+      lineControlBlue,
+      pointControlRed,
+      pointControlBlue;
+
+  var controlPointRed = {},
+      controlPointBlue = {};
 
   var pointsBlue = ebmstats.getCoordinatesOfCurve(lrPlus, canvas);
   var pointsRed = ebmstats.getCoordinatesOfCurve(lrMinus, canvas);
@@ -169,25 +179,52 @@ function plotSVG(template, lrPlus, lrMinus, canvas) {
     lineRed += " L" + point.x + "," + point.y; // draw line to new x,y coordinate
   });
 
-  if (lrPlus !== "0" && lrMinus !== "0") {
+  controlPointBlue.x = ((lrPlus + 1)/(Math.pow(lrPlus, 2) + lrPlus + 1)) * canvas.width;
+  controlPointBlue.y = canvas.height - (((Math.pow(lrPlus, 2) + 1)/(Math.pow(lrPlus, 2) + lrPlus + 1)) * canvas.height);
+
+  controlPointRed.y = ((lrMinus + 1)/(Math.pow(lrMinus, 2) + lrMinus + 1)) * canvas.width;
+  controlPointRed.y = (((Math.pow(lrMinus, 2) + 1)/(Math.pow(lrMinus, 2) + lrMinus + 1)) * canvas.height);
+
+  lineControlRed = "M0," + canvas.height + " Q" + controlPointRed.x + "," + controlPointRed.y + " " + canvas.width + ",0";
+  lineControlBlue = "M0," + canvas.height + " Q" + controlPointBlue.x + "," + controlPointBlue.y + " " + canvas.width + ",0";
+
+  pointControlRed = '<line x1="' + controlPointRed.x + '" y1="' + controlPointRed.y + '" x2="' + controlPointRed.x + '" y2="' + controlPointRed.y + '" stroke="#F00" stroke-width="5" stroke-linecap="round" />';
+  pointControlBlue = '<line x1="' + controlPointBlue.x + '" y1="' + controlPointBlue.y + '" x2="' + controlPointBlue.x + '" y2="' + controlPointBlue.y + '" stroke="#666" stroke-width="5" stroke-linecap="round" />';
+
+
+  if (lrPlus !== 0 && lrMinus !== 0) {
     template = template.split("{{red}}").join(lineRed);
     template = template.split("{{blue}}").join(lineBlue);
+    template = template.split("{{controlRed}}").join(lineControlRed);
+    template = template.split("{{controlBlue}}").join(lineControlBlue);
+    //template = template.split("{{controlPointRed}}").join(pointControlRed);
+    //template = template.split("{{controlPointBlue}}").join(pointControlBlue);
+
+
   }
 
   return template;
 }
 
-
-
-
-
 app.post('/rct', function (req, res) {
-	res.send(ebmstats.getRct())
-})
+	var testValues = {
+    "experimentalOutcome": parseFloat(req.body.experimentalOutcome),
+    "experimentalNoOutcome": parseFloat(req.body.experimentalNoOutcome),
+    "controlOutcome": parseFloat(req.body.controlOutcome),
+    "controlNoOutcome": parseFloat(req.body.controlNoOutcome)
+  };
+  res.send(ebmstats.getRct(testValues));
+});
 
 app.post('/caseControlStudy', function (req, res) {
-	res.send(ebmstats.getCaseControlStudy())
-})
+	var testValues = {
+    "caseExposed": parseFloat(req.body.caseExposed),
+    "caseNotExposed": parseFloat(req.body.caseNotExposed),
+    "controlExposed": parseFloat(req.body.controlExposed),
+    "controlNotExposed": parseFloat(req.body.controlNotExposed)
+  };
+  res.send(ebmstats.getCaseControlStudy(testValues));
+});
 
 app.post('/diagnosticTest', function (req, res) {
   var testValues = {
@@ -197,9 +234,9 @@ app.post('/diagnosticTest', function (req, res) {
     "testNegativeNoDisease": parseFloat(req.body.testNegativeNoDisease),
     "lrPlus": parseFloat(req.body.lrPlus),
     "lrMinus": parseFloat(req.body.lrMinus)
-  }
+  };
   res.send(ebmstats.getDiagnosticTest(testValues))
-})
+});
 
 app.post('/prospectiveStudy', function (req, res) {
   var testValues = {
@@ -207,10 +244,10 @@ app.post('/prospectiveStudy', function (req, res) {
     "treatedNoDisease": parseFloat(req.body.treatedNoDisease),
     "notTreatedDisease": parseFloat(req.body.notTreatedDisease),
     "notTreatedNoDisease": parseFloat(req.body.notTreatedNoDisease)
-  }
+  };
   res.send(ebmstats.getProspectiveStudy(testValues))
-})
+});
 
 var server = app.listen(3000, function() {
 	console.log("listening");
-})
+});

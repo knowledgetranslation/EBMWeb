@@ -1,8 +1,9 @@
 <select name="calculatorType" id="calculatorType">
   <optgroup label="Select a table type...">
-    <option value="dt">Diagnostic Test</option>
-    <option value="ps">Prospective Study</option>
-    <option value="ccs">Case-control Study</option>
-    <option value="rct">Randomized Controlled Trial</option>
+    <option value=""></option>
+    <option value="1">Diagnostic Test</option>
+    <option value="2">Prospective Study</option>
+    <option value="3">Case-control Study</option>
+    <option value="4">Randomized Controlled Trial</option>
   </optgroup>
 </select>

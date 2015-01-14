@@ -4,11 +4,23 @@ app.views.DiagnosticTestView = Backbone.View.extend({
   template: JST['app/templates/diagnosticTest/diagnosticTest.us'],
 
   initialize: function() {
+    this.listenTo(Backbone, 'tests:changed', this.show);
+    this.listenTo(this.model, 'change', this.render);
     this.render();
-    this.model.on('change', this.render, this);
+    this.el.style.display = 'none';
+  },
+
+  show: function(model) {
+    if (model.get("id") === "1") {
+      this.el.style.display = 'block';
+    }
+    else
+    {
+      this.el.style.display = 'none';
+    }
   },
 
   render: function() {
-    this.$el.html(this.template(this.model.attributes));
+    this.el.innerHTML = this.template(this.model.attributes);
   }
 });

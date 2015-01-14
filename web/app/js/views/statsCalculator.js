@@ -7,20 +7,8 @@ app.views.StatsCalculatorView = Backbone.View.extend({
     'change select': 'changeCalculator'
   },
 
-  changeCalculator: function (e) {
-    switch ($(this.$el).find("select").val()) {
-      case "dt":
-        $("#diagnosticTests").show();
-        $("#prospectiveStudyTests").hide();
-        break;
-      case "ps":
-        $("#diagnosticTests").hide();
-        $("#prospectiveStudyTests").show();
-        break;
-      default:
-        $("#diagnosticTests").hide();
-        $("#prospectiveStudyTests").hide();
-    }
+  changeCalculator: function () {
+    this.model.set("id", this.el.querySelector("select").value);
   },
 
   initialize: function() {
@@ -28,6 +16,6 @@ app.views.StatsCalculatorView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template());
+    this.el.innerHTML = this.template();
   }
 });
